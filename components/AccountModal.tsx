@@ -85,12 +85,14 @@ export default function AccountModal({ isOpen, onClose, onSuccess }: AccountModa
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
           />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white rounded-3xl shadow-soft-xl z-50 overflow-y-auto max-h-[90vh]"
-          >
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                className="relative w-full max-w-lg bg-white rounded-3xl shadow-soft-xl max-h-[90vh] overflow-y-auto"
+              >
             <div className="p-8">
               <div className="relative mb-8">
                 <div className="flex flex-col items-center gap-3">
@@ -198,7 +200,9 @@ export default function AccountModal({ isOpen, onClose, onSuccess }: AccountModa
               </div>
             </form>
           </div>
-          </motion.div>
+              </motion.div>
+            </div>
+          </div>
         </>
       )}
     </AnimatePresence>
