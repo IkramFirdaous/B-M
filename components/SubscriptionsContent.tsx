@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { createSupabaseClient } from '@/lib/supabase/client'
 import SubscriptionCard from './SubscriptionCard'
 import { Database } from '@/lib/types/database'
@@ -16,11 +16,7 @@ export default function SubscriptionsContent({ userId }: { userId: string }) {
   const [totalAnnual, setTotalAnnual] = useState(0)
   const supabase = createSupabaseClient()
 
-  useEffect(() => {
-    loadSubscriptions()
-  }, [userId])
-
-  const loadSubscriptions = async () => {
+  const loadSubscriptions = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('recurring_transactions')
@@ -56,7 +52,11 @@ export default function SubscriptionsContent({ userId }: { userId: string }) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [userId, supabase])
+
+  useEffect(() => {
+    loadSubscriptions()
+  }, [loadSubscriptions])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this subscription?')) {

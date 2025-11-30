@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { createSupabaseClient } from '@/lib/supabase/client'
 import PerformanceScore from './PerformanceScore'
 import { calculatePerformanceScoreFromData } from '@/lib/utils/performance-score'
@@ -31,11 +31,7 @@ export default function DashboardContent({ userId }: { userId: string }) {
   })
   const supabase = createSupabaseClient()
 
-  useEffect(() => {
-    loadDashboardData()
-  }, [userId])
-
-  const loadDashboardData = async () => {
+  const loadDashboardData = useCallback(async () => {
     try {
       const now = new Date()
       const currentMonth = now.getMonth() + 1
@@ -122,7 +118,11 @@ export default function DashboardContent({ userId }: { userId: string }) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [userId, supabase])
+
+  useEffect(() => {
+    loadDashboardData()
+  }, [loadDashboardData])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { format } from 'date-fns'
 import PerformanceScore from './PerformanceScore'
 import { getRandomCopy } from '@/lib/copywriting'
@@ -24,11 +24,7 @@ export default function MonthlyWrap() {
   const [month, setMonth] = useState(new Date().getMonth() + 1)
   const [year, setYear] = useState(new Date().getFullYear())
 
-  useEffect(() => {
-    loadWrap()
-  }, [month, year])
-
-  const loadWrap = async () => {
+  const loadWrap = useCallback(async () => {
     setLoading(true)
     try {
       const response = await fetch(`/api/wraps/monthly?month=${month}&year=${year}`)
@@ -40,7 +36,11 @@ export default function MonthlyWrap() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [month, year])
+
+  useEffect(() => {
+    loadWrap()
+  }, [loadWrap])
 
   if (loading) {
     return (
@@ -131,7 +131,7 @@ export default function MonthlyWrap() {
                   {data.topCategory.name}: ${data.topCategory.amount.toFixed(2)}
                 </p>
                 <p className="text-sm text-gray-600 mt-2 italic">
-                  "You really went all out on {data.topCategory.name.toLowerCase()}. We're not judging. Much."
+                  &quot;You really went all out on {data.topCategory.name.toLowerCase()}. We&apos;re not judging. Much.&quot;
                 </p>
               </div>
             )}
@@ -143,7 +143,7 @@ export default function MonthlyWrap() {
                   {data.lowestCategory.name}: ${data.lowestCategory.amount.toFixed(2)}
                 </p>
                 <p className="text-sm text-gray-600 mt-2 italic">
-                  "You barely touched {data.lowestCategory.name.toLowerCase()}. Impressive restraint."
+                  &quot;You barely touched {data.lowestCategory.name.toLowerCase()}. Impressive restraint.&quot;
                 </p>
               </div>
             )}

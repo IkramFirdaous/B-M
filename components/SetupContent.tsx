@@ -85,15 +85,15 @@ export default function SetupContent({ userId }: { userId: string }) {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full bg-white rounded-lg shadow-lg p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary-700 mb-2">Welcome to Biff&Moi!</h1>
-          <p className="text-gray-600">Let's set up your account</p>
+          <h1 className="text-3xl font-bold text-primary-700 mb-2">Welcome to Biff&amp;Moi!</h1>
+          <p className="text-gray-600">Let&apos;s set up your account</p>
         </div>
 
         {step === 1 && (
           <div>
             <h2 className="text-xl font-semibold mb-4">Step 1: Create Your First Account</h2>
             <p className="text-gray-600 mb-4">
-              Create an account to track your transactions (e.g., "Checking Account", "Savings", "Cash")
+              Create an account to track your transactions (e.g., &quot;Checking Account&quot;, &quot;Savings&quot;, &quot;Cash&quot;)
             </p>
             <div className="space-y-4">
               <div>

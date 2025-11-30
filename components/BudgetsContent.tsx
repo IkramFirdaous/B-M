@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { createSupabaseClient } from '@/lib/supabase/client'
 import { Database } from '@/lib/types/database'
 import { ArrowLeft, Plus, AlertTriangle } from 'lucide-react'
@@ -19,11 +19,7 @@ export default function BudgetsContent({ userId }: { userId: string }) {
   const [year, setYear] = useState(new Date().getFullYear())
   const supabase = createSupabaseClient()
 
-  useEffect(() => {
-    loadBudgets()
-  }, [userId, month, year])
-
-  const loadBudgets = async () => {
+  const loadBudgets = useCallback(async () => {
     try {
       // Load budgets
       const { data: budgetsData } = await supabase
@@ -73,7 +69,11 @@ export default function BudgetsContent({ userId }: { userId: string }) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [userId, month, year, supabase])
+
+  useEffect(() => {
+    loadBudgets()
+  }, [loadBudgets])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this budget?')) return
