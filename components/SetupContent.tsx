@@ -117,7 +117,7 @@ export default function SetupContent({ userId }: { userId: string }) {
             transition={{ delay: 0.4 }}
             className="text-gray-600"
           >
-            Let's get you set up in just 2 steps
+            Let&apos;s get you set up in just 2 steps
           </motion.p>
         </div>
 
@@ -201,7 +201,7 @@ export default function SetupContent({ userId }: { userId: string }) {
                 </div>
               </div>
               <p className="text-gray-600 mb-6">
-                Pick categories for organizing your transactions. Don't worry, you can always add more!
+                Pick categories for organizing your transactions. Don&apos;t worry, you can always add more!
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
                 {defaultCategories.map((category, index) => (

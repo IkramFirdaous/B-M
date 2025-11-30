@@ -464,7 +464,7 @@ export default function BudgetsContent({ userId }: { userId: string }) {
                         animate={{ opacity: 1 }}
                         className="text-xs text-danger-600 italic mt-2"
                       >
-                        You've exceeded this budget. Hope it was worth it!
+                        You&apos;ve exceeded this budget. Hope it was worth it!
                       </motion.p>
                     )}
                   </motion.div>

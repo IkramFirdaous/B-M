@@ -181,7 +181,7 @@ export default function SubscriptionsContent({ userId }: { userId: string }) {
                 <p className="text-4xl font-bold text-danger-600 mt-2">
                   ${totalAnnual.toFixed(2)}
                 </p>
-                <p className="text-xs text-danger-600 mt-1">That's a used car!</p>
+                <p className="text-xs text-danger-600 mt-1">That&apos;s a used car!</p>
               </div>
               <div className="p-3 bg-danger-200/50 rounded-xl">
                 <DollarSign className="w-6 h-6 text-danger-600" />
@@ -205,7 +205,7 @@ export default function SubscriptionsContent({ userId }: { userId: string }) {
                 No subscriptions yet
               </h3>
               <p className="text-gray-500 mb-6">
-                That's... actually impressive. Either you're very disciplined or you forgot to add them.
+                That&apos;s... actually impressive. Either you&apos;re very disciplined or you forgot to add them.
               </p>
               <Link href="/subscriptions/new">
                 <motion.button
