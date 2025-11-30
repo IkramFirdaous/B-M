@@ -2,6 +2,8 @@
 
 A personal finance app that enables users to track spending, income, budgets, subscriptions, savings goals, and overall financial performance. Built with Next.js, TypeScript, and Supabase.
 
+If you wanna try it, here you go: https://biffetmoi.vercel.app/
+
 ## Features
 
 - **User Authentication**: Email/password and Google OAuth
