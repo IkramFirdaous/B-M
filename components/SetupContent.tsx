@@ -109,7 +109,7 @@ export default function SetupContent({ userId }: { userId: string }) {
             transition={{ delay: 0.3 }}
             className="text-4xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent mb-2"
           >
-            Welcome to Biff&Moi!
+            {"Welcome to Biff&amp;Moi!"}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -117,7 +117,7 @@ export default function SetupContent({ userId }: { userId: string }) {
             transition={{ delay: 0.4 }}
             className="text-gray-600"
           >
-            Let&apos;s get you set up in just 2 steps
+            {"Let&apos;s get you set up in just 2 steps"}
           </motion.p>
         </div>
 
@@ -201,7 +201,7 @@ export default function SetupContent({ userId }: { userId: string }) {
                 </div>
               </div>
               <p className="text-gray-600 mb-6">
-                Pick categories for organizing your transactions. Don&apos;t worry, you can always add more!
+                {"Pick categories for organizing your transactions. Don&apos;t worry, you can always add more!"}
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
                 {defaultCategories.map((category, index) => (
@@ -286,4 +286,3 @@ export default function SetupContent({ userId }: { userId: string }) {
     </div>
   )
 }
-
