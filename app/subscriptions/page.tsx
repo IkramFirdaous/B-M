@@ -13,3 +13,4 @@ export default async function SubscriptionsPage() {
   return <SubscriptionsContent userId={session.user.id} />
 }
 
+

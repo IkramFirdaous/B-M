@@ -98,9 +98,9 @@ export default function SubscriptionsContent({ userId }: { userId: string }) {
 
   // Fun header message based on subscription count
   const getHeaderMessage = () => {
-    if (subscriptions.length === 0) return "No subscriptions yet. That's... actually impressive."
+    if (subscriptions.length === 0) return "No subscriptions yet. That&apos;s... actually impressive."
     if (subscriptions.length > 10) return "These are the monthly payments slowly draining your soul."
-    if (subscriptions.length > 5) return "Quite a collection you've got here."
+    if (subscriptions.length > 5) return "Quite a collection you&apos;ve got here."
     return "Managing your recurring expenses, one at a time."
   }
 

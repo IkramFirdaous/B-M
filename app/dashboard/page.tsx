@@ -13,3 +13,4 @@ export default async function DashboardPage() {
   return <DashboardContent userId={session.user.id} />
 }
 
+

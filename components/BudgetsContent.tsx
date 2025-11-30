@@ -219,7 +219,7 @@ export default function BudgetsContent({ userId }: { userId: string }) {
           Budgets
         </h1>
         <p className="text-gray-600 mt-2">
-          {budgets.length > 0 ? "You're burning through your budget like..." : "No budgets yet. Let's fix that."}
+          {budgets.length > 0 ? "You&apos;re burning through your budget like..." : "No budgets yet. Let&apos;s fix that."}
         </p>
       </motion.div>
 
@@ -491,21 +491,22 @@ export default function BudgetsContent({ userId }: { userId: string }) {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-md bg-white rounded-3xl shadow-soft-xl z-50 p-6 overflow-y-auto max-h-[90vh]"
+              className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-md bg-white rounded-3xl shadow-soft-xl z-50 overflow-y-auto max-h-[90vh]"
             >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">New Budget</h2>
-                <button
-                  type="button"
-                  onClick={() => setShowAddModal(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  aria-label="Close modal"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+              <div className="p-8">
+                <div className="relative mb-8">
+                  <h2 className="text-2xl font-bold text-gray-900 text-center">New Budget</h2>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddModal(false)}
+                    className="absolute top-0 right-0 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    aria-label="Close modal"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="category_id" className="block text-sm font-medium text-gray-700 mb-2">
                     Category
@@ -615,6 +616,7 @@ export default function BudgetsContent({ userId }: { userId: string }) {
                   </motion.button>
                 </div>
               </form>
+            </div>
             </motion.div>
           </>
         )}

@@ -6,3 +6,4 @@ export const createSupabaseServerClient = () => {
   return createServerComponentClient({ cookies: () => cookieStore })
 }
 
+

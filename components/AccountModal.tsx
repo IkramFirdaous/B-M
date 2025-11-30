@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Wallet } from 'lucide-react'
-import { createSupabaseClient } from '@/lib/supabase/client'
 
 interface AccountModalProps {
   isOpen: boolean
@@ -35,7 +34,6 @@ export default function AccountModal({ isOpen, onClose, onSuccess }: AccountModa
     name: '',
     currency: 'USD',
   })
-  const supabase = createSupabaseClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -91,24 +89,25 @@ export default function AccountModal({ isOpen, onClose, onSuccess }: AccountModa
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white rounded-3xl shadow-soft-xl z-50 p-6 overflow-y-auto max-h-[90vh]"
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white rounded-3xl shadow-soft-xl z-50 overflow-y-auto max-h-[90vh]"
           >
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary-100 rounded-xl">
-                  <Wallet className="w-6 h-6 text-primary-600" />
+            <div className="p-8">
+              <div className="relative mb-8">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="p-3 bg-primary-100 rounded-xl">
+                    <Wallet className="w-8 h-8 text-primary-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-900 text-center">New Account</h2>
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">New Account</h2>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="absolute top-0 right-0 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Quick Select Account Types */}
@@ -198,6 +197,7 @@ export default function AccountModal({ isOpen, onClose, onSuccess }: AccountModa
                 </motion.button>
               </div>
             </form>
+          </div>
           </motion.div>
         </>
       )}

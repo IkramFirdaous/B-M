@@ -234,3 +234,4 @@ function calculateRecurringExpenseCoverage(
   return Math.min(1, totalIncome / (totalRecurringExpenses || 1))
 }
 
+

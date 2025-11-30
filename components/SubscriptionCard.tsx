@@ -36,10 +36,10 @@ export default function SubscriptionCard({
 
   // Fun messages based on price
   const getFunMessage = () => {
-    if (annualAmount > 500) return "Ouch. That's a spicy one."
+    if (annualAmount > 500) return "Ouch. That&apos;s a spicy one."
     if (annualAmount > 200) return "Maybe ask yourself... do you even use it?"
     if (annualAmount > 100) return "Not terrible, but adds up."
-    return "At least it's not breaking the bank."
+    return "At least it&apos;s not breaking the bank."
   }
 
   return (
@@ -158,4 +158,5 @@ export default function SubscriptionCard({
     </motion.div>
   )
 }
+
 

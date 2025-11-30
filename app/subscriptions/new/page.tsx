@@ -13,3 +13,4 @@ export default async function NewSubscriptionPage() {
   return <SubscriptionForm userId={session.user.id} />
 }
 
+

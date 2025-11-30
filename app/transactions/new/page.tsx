@@ -13,3 +13,4 @@ export default async function NewTransactionPage() {
   return <TransactionForm userId={session.user.id} />
 }
 
+

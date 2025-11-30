@@ -13,3 +13,4 @@ export default async function BudgetsPage() {
   return <BudgetsContent userId={session.user.id} />
 }
 
+
