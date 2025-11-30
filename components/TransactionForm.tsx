@@ -104,7 +104,7 @@ export default function TransactionForm({ userId }: { userId: string }) {
     { value: 'transfer', label: 'Transfer', icon: RefreshCw, color: 'primary' },
   ]
 
-  const selectedType = transactionTypes.find(t => t.type === formData.type)
+  const selectedType = transactionTypes.find(t => t.value === formData.type)
 
   // Check if user has accounts and categories
   const hasNoAccounts = accounts.length === 0
