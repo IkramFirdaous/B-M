@@ -8,7 +8,10 @@ import { Database } from '@/lib/types/database'
 import { getRandomCopy } from '@/lib/copywriting'
 import { format, startOfMonth, endOfMonth, subMonths } from 'date-fns'
 import Link from 'next/link'
-import { LogOut, Plus, TrendingUp, TrendingDown, DollarSign } from 'lucide-react'
+import { TrendingUp, TrendingDown, DollarSign, CreditCard } from 'lucide-react'
+import { motion } from 'framer-motion'
+import AppLayout from './AppLayout'
+import FloatingActionButton from './FloatingActionButton'
 
 type Transaction = Database['public']['Tables']['transactions']['Row']
 type Budget = Database['public']['Tables']['budgets']['Row']
@@ -124,164 +127,178 @@ export default function DashboardContent({ userId }: { userId: string }) {
     loadDashboardData()
   }, [loadDashboardData])
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    window.location.href = '/auth/login'
-  }
-
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your financial reality...</p>
+      <AppLayout>
+        <div className="min-h-[80vh] flex items-center justify-center">
+          <div className="text-center">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600 mx-auto"
+            />
+            <p className="mt-4 text-gray-600">Loading your financial reality...</p>
+          </div>
         </div>
-      </div>
+      </AppLayout>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <AppLayout>
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-primary-700">Biff&Moi</h1>
-              <p className="text-sm text-gray-600 mt-1">
-                {getRandomCopy('dashboard', 'welcome')}
-              </p>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8"
+      >
+        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
+          Welcome Back
+        </h1>
+        <p className="text-gray-600 mt-2">
+          {getRandomCopy('dashboard', 'welcome')}
+        </p>
+      </motion.div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="space-y-6">
         {/* Performance Score Section */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Performance Score</h2>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-2xl shadow-soft p-8"
+        >
+          <h2 className="text-2xl font-bold mb-6 text-gray-900">Your Financial Health</h2>
           {performanceScore ? (
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
               <PerformanceScore
                 score={performanceScore.score}
                 tier={performanceScore.tier}
-                size={180}
+                insights={performanceScore.insights}
+                size={200}
               />
-              <div className="flex-1 ml-8">
-                <div className="text-sm text-gray-600 mb-2">
-                  {getRandomCopy('performanceScore', performanceScore.tier)}
+              <div className="flex-1 space-y-4">
+                <div className="p-4 bg-gradient-to-br from-primary-50 to-primary-100/50 rounded-xl">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Quick Take:</p>
+                  <p className="text-gray-600">
+                    {getRandomCopy('performanceScore', performanceScore.tier)}
+                  </p>
                 </div>
-                {performanceScore.insights.length > 0 && (
-                  <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Insights:</p>
-                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                      {performanceScore.insights.map((insight, i) => (
-                        <li key={i}>{insight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </div>
             </div>
           ) : (
-            <p className="text-gray-500">Add transactions and budgets to see your performance score</p>
+            <div className="text-center py-8">
+              <p className="text-gray-500">Add transactions and budgets to see your performance score</p>
+              <p className="text-sm text-gray-400 mt-2">No pressure, we all start somewhere.</p>
+            </div>
           )}
-        </div>
+        </motion.div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -4 }}
+            className="bg-gradient-to-br from-success-50 to-success-100/50 rounded-2xl shadow-soft p-6 border border-success-200/50"
+          >
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total Income</p>
-                <p className="text-2xl font-bold text-green-600 mt-1">
+                <p className="text-sm font-medium text-success-700">Total Income</p>
+                <p className="text-3xl font-bold text-success-600 mt-2">
                   ${stats.totalIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
+                <p className="text-xs text-success-600 mt-1">This month</p>
               </div>
-              <TrendingUp className="w-8 h-8 text-green-500" />
+              <div className="p-3 bg-success-200/50 rounded-xl">
+                <TrendingUp className="w-6 h-6 text-success-600" />
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ y: -4 }}
+            className="bg-gradient-to-br from-danger-50 to-danger-100/50 rounded-2xl shadow-soft p-6 border border-danger-200/50"
+          >
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total Expenses</p>
-                <p className="text-2xl font-bold text-red-600 mt-1">
+                <p className="text-sm font-medium text-danger-700">Total Expenses</p>
+                <p className="text-3xl font-bold text-danger-600 mt-2">
                   ${stats.totalExpenses.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
+                <p className="text-xs text-danger-600 mt-1">This month</p>
               </div>
-              <TrendingDown className="w-8 h-8 text-red-500" />
+              <div className="p-3 bg-danger-200/50 rounded-xl">
+                <TrendingDown className="w-6 h-6 text-danger-600" />
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            whileHover={{ y: -4 }}
+            className={`bg-gradient-to-br rounded-2xl shadow-soft p-6 border ${
+              stats.netSavings >= 0
+                ? 'from-success-50 to-success-100/50 border-success-200/50'
+                : 'from-danger-50 to-danger-100/50 border-danger-200/50'
+            }`}
+          >
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-gray-600">Net Savings</p>
-                <p className={`text-2xl font-bold mt-1 ${
-                  stats.netSavings >= 0 ? 'text-green-600' : 'text-red-600'
+                <p className={`text-sm font-medium ${stats.netSavings >= 0 ? 'text-success-700' : 'text-danger-700'}`}>
+                  Net Savings
+                </p>
+                <p className={`text-3xl font-bold mt-2 ${
+                  stats.netSavings >= 0 ? 'text-success-600' : 'text-danger-600'
                 }`}>
                   ${stats.netSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
+                <p className={`text-xs mt-1 ${stats.netSavings >= 0 ? 'text-success-600' : 'text-danger-600'}`}>
+                  {stats.netSavings >= 0 ? 'Looking good' : 'Uh oh'}
+                </p>
               </div>
-              <DollarSign className={`w-8 h-8 ${
-                stats.netSavings >= 0 ? 'text-green-500' : 'text-red-500'
-              }`} />
+              <div className={`p-3 rounded-xl ${stats.netSavings >= 0 ? 'bg-success-200/50' : 'bg-danger-200/50'}`}>
+                <DollarSign className={`w-6 h-6 ${
+                  stats.netSavings >= 0 ? 'text-success-600' : 'text-danger-600'
+                }`} />
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            whileHover={{ y: -4 }}
+            className="bg-gradient-to-br from-primary-50 to-primary-100/50 rounded-2xl shadow-soft p-6 border border-primary-200/50"
+          >
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-gray-600">Subscriptions</p>
-                <p className="text-2xl font-bold text-primary-600 mt-1">
+                <p className="text-sm font-medium text-primary-700">Subscriptions</p>
+                <p className="text-3xl font-bold text-primary-600 mt-2">
                   {stats.subscriptionCount}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  ${stats.subscriptionMonthly.toFixed(2)}/mo
+                <p className="text-xs text-primary-600 mt-1">
+                  ${stats.subscriptionMonthly.toFixed(2)}/month
                 </p>
               </div>
-              <DollarSign className="w-8 h-8 text-primary-500" />
+              <div className="p-3 bg-primary-200/50 rounded-xl">
+                <CreditCard className="w-6 h-6 text-primary-600" />
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link
-              href="/transactions/new"
-              className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
-            >
-              <Plus className="w-5 h-5 text-primary-600" />
-              <span className="font-medium">Add Transaction</span>
-            </Link>
-            <Link
-              href="/budgets"
-              className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
-            >
-              <Plus className="w-5 h-5 text-primary-600" />
-              <span className="font-medium">Manage Budgets</span>
-            </Link>
-            <Link
-              href="/subscriptions"
-              className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
-            >
-              <Plus className="w-5 h-5 text-primary-600" />
-              <span className="font-medium">View Subscriptions</span>
-            </Link>
-          </div>
-        </div>
-      </main>
-    </div>
+      </div>
+
+      <FloatingActionButton />
+    </AppLayout>
   )
 }
 
